@@ -56,7 +56,7 @@ def makestartdict(wordset, GRIDSIZE):
         startdict[length] = set(starters)
     return startdict
 
-def checkpath(path, grid, neighbordict, wordset, startdict):
+def checkpath(path, grid, neighbordict, wordset, startdict, answords):
     pathlist = [grid[i - 1] for i in path]
     pathword = ''.join(pathlist)
     if pathword in wordset:
@@ -65,11 +65,13 @@ def checkpath(path, grid, neighbordict, wordset, startdict):
         for point in neighbordict[path[-1]]:
             if point not in path:
                 newpath = path + [point]
-                checkpath(newpath, grid, 
-                          neighbordict, wordset, startdict)
+                checkpath(newpath, grid, neighbordict, 
+                          wordset, startdict, answords)
     return None
-    
-if __name__ == "__main__":
+
+def main():
+    GRIDSIZE = raw_input("What is the lenght of one size of the grid?\n")
+    GRIDSIZE = int(GRIDSIZE)
     grid = ''
     for i in range(GRIDSIZE):
         line = raw_input("Enter line %s:\n" % (i + 1))
@@ -84,7 +86,10 @@ if __name__ == "__main__":
     startdict = makestartdict(wordset, GRIDSIZE)
     answords = []
     for i in range(1, GRIDSIZE**2 + 1):
-        checkpath([i], grid, neighbordict, wordset, startdict)
+        checkpath([i], grid, neighbordict, wordset, startdict, answords)
     uniqwords = list(set(answords))
     uniqwords = sorted(uniqwords, key=len)
-    print '\n'.join(uniqwords)
+    print '\n'.join(uniqwords)   
+       
+if __name__ == "__main__":
+    main()
