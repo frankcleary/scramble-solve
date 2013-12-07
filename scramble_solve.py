@@ -70,12 +70,21 @@ def checkpath(path, grid, neighbordict, wordset, startdict):
     return None
     
 if __name__ == "__main__":
-    GRIDSIZE = input("What is the lenght of one size of the grid?\n")
+    grid = ''
+    for i in range(GRIDSIZE):
+        line = raw_input("Enter line %s:\n" % (i + 1))
+        if i == 0:
+            GRIDSIZE = len(line)
+        if len(line) != GRIDSIZE:
+            print "Invalid line. You must enter %s letters per line" % GRIDSIZE        
+        grid = grid + line
+    grid = grid.lower()
     neighbordict = neighbors(GRIDSIZE)
     wordset = readwords(WORDFILE)
     startdict = makestartdict(wordset, GRIDSIZE)
     answords = []
-    grid = 'xtaxxxxxa'
     for i in range(1, GRIDSIZE**2 + 1):
         checkpath([i], grid, neighbordict, wordset, startdict)
-    print list(set(answords))
+    uniqwords = list(set(answords))
+    uniqwords = sorted(uniqwords, key=len)
+    print '\n'.join(uniqwords)
