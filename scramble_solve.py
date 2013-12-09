@@ -95,6 +95,7 @@ def checkpath(path, grid, neighbordict, wordset, startdict, answords):
     startdict: a dictionary with keys n whose values are sets of all the length
         n permutations of letters that form the start of words. Made by the
         makestartdict function.
+    abswords: a list of words found in the grid.
     """
     pathlist = [grid[i - 1] for i in path]
     pathword = ''.join(pathlist)
