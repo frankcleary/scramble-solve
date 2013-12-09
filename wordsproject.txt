@@ -1,1 +1,0 @@
-grep ^[a-z]. /usr/share/dict/words | grep -v "'" > ~/words.txt
